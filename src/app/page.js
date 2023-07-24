@@ -1,4 +1,7 @@
 "use client";
+import Plus from "@/components/Plus";
+import Minus from "@/components/Minus";
+import Close from "@/components/Close";
 import { useState } from "react";
 
 export default function Home() {
@@ -6,17 +9,33 @@ export default function Home() {
   const [cartItems, setCartItems] = useState(0); // interger
   const [subjects, setSubjects] = useState([]); // array
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
+  const [subInput, setSubInput] = useState("");
+
+  const handleUsername = (e) => setUsername(e.target.value);
 
   const handleCartNumIncrease = (e) => {
     setCartItems((e) => e + 1);
   };
   const handleCartNumDecrease = (e) => {
-    // cartItems >= 1 ? setCartItems((e) => e - 1) : setCartItems(0);
-    setCartItems((e) => e - 1);
+    cartItems >= 1 ? setCartItems((e) => e - 1) : setCartItems(0);
   };
+
+  const handleSubChange = (e) => setSubInput(e.target.value);
+
+  const handleAddSubject = (e) => {
+    e.preventDefault();
+    let subjectArray = !subjects?.length ? [] : subjects;
+    const allSubject = subInput ? subjectArray.push(subInput) : null;
+    setSubInput("");
+    setSubjects(subjectArray);
+    console.log(subjects);
+  };
+
+  const handleRemoveSubject = (del) => {
+    const newSubjectArray = subjects.filter((e) => e !== del);
+    setSubjects(newSubjectArray);
+  };
+
   return (
     <div className="main-container">
       <div className="nav-bar">
@@ -60,8 +79,12 @@ export default function Home() {
                 )}
               </div>
               <div className="cu-example__two">
-                <button onClick={handleCartNumIncrease}>+</button>
-                <button onClick={handleCartNumDecrease}>-</button>
+                <button onClick={handleCartNumIncrease}>
+                  <Plus />
+                </button>
+                <button onClick={handleCartNumDecrease}>
+                  <Minus />
+                </button>
               </div>
             </div>
           </div>
@@ -70,16 +93,33 @@ export default function Home() {
               Example 3: <span>Updating Subject List</span>
             </div>
             <div>
-              <form action="">
+              <form onSubmit={handleAddSubject}>
                 <div className="cu-three-main">
                   <div className="cu-example__three">
-                    <input type="text" value={7} />
+                    <input
+                      type="text"
+                      value={subInput}
+                      onChange={handleSubChange}
+                    />
                   </div>
                   <div className="cu-example__three">
                     <button>Add Subject</button>
                   </div>
                 </div>
               </form>
+            </div>
+            <div className="cu--sub__box">
+              {subjects.map((e, i) => (
+                <div className="cu--sub__item" key={i}>
+                  <div>{e}</div>
+                  <div
+                    className="cu--svg"
+                    onClick={() => handleRemoveSubject(e)}
+                  >
+                    <Close />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
