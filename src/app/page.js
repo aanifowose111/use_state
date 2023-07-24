@@ -8,14 +8,16 @@ import Close from "@/components/Close";
 import { useState } from "react";
 
 export default function Home() {
+  // STATES
   const [username, setUsername] = useState(""); // string
   const [cartItems, setCartItems] = useState(0); // interger
   const [subjects, setSubjects] = useState([]); // array
+  const [subInput, setSubInput] = useState(""); // string
 
-  const [subInput, setSubInput] = useState("");
-
+  // Handle Username Change
   const handleUsername = (e) => setUsername(e.target.value);
 
+  // Handle Cart Update
   const handleCartNumIncrease = (e) => {
     setCartItems((e) => e + 1);
   };
@@ -23,22 +25,21 @@ export default function Home() {
     cartItems >= 1 ? setCartItems((e) => e - 1) : setCartItems(0);
   };
 
+  // Handle Subject List
   const handleSubChange = (e) => setSubInput(e.target.value);
-
   const handleAddSubject = (e) => {
     e.preventDefault();
     let subjectArray = !subjects?.length ? [] : subjects;
     const allSubject = subInput ? subjectArray.push(subInput) : null;
     setSubInput("");
     setSubjects(subjectArray);
-    console.log(subjects);
   };
-
   const handleRemoveSubject = (del) => {
     const newSubjectArray = subjects.filter((e) => e !== del);
     setSubjects(newSubjectArray);
   };
 
+  // Render the component
   return (
     <div className="main-container">
       <div className="nav-bar">
@@ -54,8 +55,13 @@ export default function Home() {
             <div className="cu-example">
               Example 1: <span>Updating username</span>
             </div>
-            <div className="username--text">
-              Your username is {username != "" ? username : "not set"}
+            <div className="username--text" style={{ display: "flex" }}>
+              Your username is
+              {username != "" ? (
+                <div className="cu--username">&nbsp;{username}</div>
+              ) : (
+                " not set"
+              )}
             </div>
             <div>
               <form action="">

@@ -196,3 +196,7 @@ svg {
 .cu--svg {
   margin-left: 32px;
 }
+
+.cu--username {
+  color: #ff66c4;
+}
