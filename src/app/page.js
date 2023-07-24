@@ -1,95 +1,89 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
 
 export default function Home() {
+  const [username, setUsername] = useState(""); // string
+  const [cartItems, setCartItems] = useState(0); // interger
+  const [subjects, setSubjects] = useState([]); // array
+
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleCartNumIncrease = (e) => {
+    setCartItems((e) => e + 1);
+  };
+  const handleCartNumDecrease = (e) => {
+    // cartItems >= 1 ? setCartItems((e) => e - 1) : setCartItems(0);
+    setCartItems((e) => e - 1);
+  };
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="main-container">
+      <div className="nav-bar">
+        <div className="nav-bar__logo">CODING UNIVERSITY</div>
+        <div className="nav-bar__icon">
+          <img src="/CU_.png" alt="" />
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="container-body">
+        <div className="container-body__text">
+          <div className="cu-title">REACT HOOKS - useState</div>
+          <div className="cu--box">
+            <div className="cu-example">
+              Example 1: <span>Updating username</span>
+            </div>
+            <div className="username--text">
+              Your username is {username != "" ? username : "not set"}
+            </div>
+            <div>
+              <form action="">
+                <div className="cu-example__one-form">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={handleUsername}
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="cu--box">
+            <div className="cu-example">
+              Example 2: <span>Updating cart items</span>
+            </div>
+            <div>
+              <div className="cu-example__two num">
+                {cartItems !== 0 ? (
+                  cartItems
+                ) : (
+                  <div className="empty--cart">Your cart is empty</div>
+                )}
+              </div>
+              <div className="cu-example__two">
+                <button onClick={handleCartNumIncrease}>+</button>
+                <button onClick={handleCartNumDecrease}>-</button>
+              </div>
+            </div>
+          </div>
+          <div className="cu--box">
+            <div className="cu-example">
+              Example 3: <span>Updating Subject List</span>
+            </div>
+            <div>
+              <form action="">
+                <div className="cu-three-main">
+                  <div className="cu-example__three">
+                    <input type="text" value={7} />
+                  </div>
+                  <div className="cu-example__three">
+                    <button>Add Subject</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
