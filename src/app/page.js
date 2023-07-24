@@ -1,3 +1,6 @@
+// Code University
+// By Abiodun Anifowose
+
 "use client";
 import Plus from "@/components/Plus";
 import Minus from "@/components/Minus";
