@@ -1,4 +1,4 @@
-// Code University
+// Coding University
 // By Abiodun Anifowose
 
 "use client";
